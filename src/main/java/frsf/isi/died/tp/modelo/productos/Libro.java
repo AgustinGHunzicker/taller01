@@ -82,22 +82,37 @@ public class Libro extends MaterialCapacitacion {
 	public void setPaginas(Integer paginas) {
 		this.paginas = paginas;
 	}
-
+    
+	/**
+	 *Retorna verdadero si el Material de Capacitacion es del 
+	 *tipo Libro, de lo contrario retorna falso
+	 *@return 
+	 */
+	
 	@Override
 	public Boolean esLibro() {
 		//TODO 03: implementar metodo abstracto
-		return null;
+		Boolean bool = this instanceof Libro;
+		return bool;
 	}
-
+    
+	/**
+	 *Retorna falso si el Material de Capacitacion es del 
+	 *tipo Libro, de lo contrario retorna verdadero
+	 *@return 
+	 */
 	@Override
 	public Boolean esVideo() {
 		//TODO 04: implementar metodo abstracto
-		return null;
+		Boolean bool = this instanceof Libro;
+		if(bool) bool = false;
+		else bool = true;        
+		return bool;
 	}
 
 	/**
 	 * El precio de un libro se calcula segun la siguiente formula
-	 * PRECIO = costo + (precio de compra * FACTOR_PAGINAS)
+	 * PRECIO = costo + (precio de compra * (1 + FACTOR_PAGINAS))
 	 * FACTOR_PAGINAS es un 3% cada 150 paginas.
 	 * 
 	 * Por ejemplo, para un libro cuyo costo de publicacion es de $50 y cuyo precio de compra
@@ -109,7 +124,8 @@ public class Libro extends MaterialCapacitacion {
 	@Override
 	public Double precio() {
 		//TODO 05: implementar metodo abstracto
-		return null;
+		Double precioFinal = (this.costo+(this.precioCompra * (1.00 + 0.03*(this.paginas/150))));
+		return precioFinal;
 	}
 
 	

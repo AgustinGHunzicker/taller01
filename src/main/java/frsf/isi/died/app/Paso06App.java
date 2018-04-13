@@ -4,7 +4,7 @@ import frsf.isi.died.tp.modelo.Biblioteca;
 import frsf.isi.died.tp.modelo.BibliotecaArray;
 import frsf.isi.died.tp.modelo.productos.Libro;
 import frsf.isi.died.tp.modelo.productos.MaterialCapacitacion;
-//import frsf.isi.died.tp.modelo.productos.Video;
+import frsf.isi.died.tp.modelo.productos.Video;
 
 public class Paso06App {
 	
@@ -19,19 +19,19 @@ public class Paso06App {
 		Libro l3 = new Libro(3,"Python",20.0,100.0, 460);
 		System.out.println("Libro creado: "+l3.toString());
 		
-//		Video v1 = new Video(1,"Algoritmos de busqueda",50.0,350);
-//		System.out.println("Video creado: "+v1.toString());
-//
-//		Video v2 = new Video(2,"Metodos de ordenamiento",40.0, 740);
-//		System.out.println("Video creado: "+v2.toString());
+		Video v1 = new Video(1,"Algoritmos de busqueda",50.0,350);
+		System.out.println("Video creado: "+v1.toString());
+
+		Video v2 = new Video(2,"Metodos de ordenamiento",40.0, 740);
+		System.out.println("Video creado: "+v2.toString());
 		
 		System.out.println("Test");
 		Biblioteca biblioteca = new BibliotecaArray();
 		biblioteca.agregar(l1);
 		biblioteca.agregar(l2);
 		biblioteca.agregar(l3);
-//		biblioteca.agregar(v1);
-//		biblioteca.agregar(v2);
+		biblioteca.agregar(v1);
+		biblioteca.agregar(v2);
 		
 		for(MaterialCapacitacion mat : biblioteca.materiales()) {
 			if(mat!=null) System.out.println(mat.toString());

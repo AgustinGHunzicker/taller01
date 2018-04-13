@@ -89,6 +89,12 @@ public class ListaServiceRadix extends ListasService {
 				// TODO 11: IMPLEMENTAR el ALGORITMO que chequea el residuo 
 				// e inserta el elemento en la posicion de la matriz de residuos
 				// e incrementa el contador en cantidadPorFila en 1
+	            if(mat != null) {
+				int aux;
+				aux = (((int)(mat.valor() / peso))%10);
+				residuos[aux][cantidadPorFila[aux]] = mat;
+				cantidadPorFila[aux]++;
+	            }
 			}
 			int indiceArregloOrdenado = 0;
 			for (int j = 0; j < 10; j++) {
