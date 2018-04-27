@@ -174,4 +174,39 @@ public abstract class MaterialCapacitacion implements Ordenable {
 		return bool;
 	}
 	
+	/**
+	 * compara dos objetos segun el tamanio de su titulo, si es igual compara por su precio.
+	 * Si el objeto this es mas grande retorna -1
+	 * Si el objeto parametro es mas grande retorna 1
+	 * Si son iguales en titulo y precio retorna 0
+	 * @param objeto
+	 * @return
+	 */
+	
+	 public int compareTo(MaterialCapacitacion objeto) {
+		 if(this.titulo.compareTo(objeto.titulo) > 0){
+		    return 1;
+		 }
+		 else {
+		       if(this.titulo.compareTo(objeto.titulo) == 0){
+		    	  if(this.precio() > objeto.precio()){
+		    	     return -1;
+		    	   }
+		           else {
+		    		    if(this.precio() == objeto.precio()) {
+		    			   return 0;
+		    		     }
+		    		     else {
+		    		    	   return 1;
+		    		          }
+		    	       }
+		        }
+		       else{
+		    	   return -1;
+		       }
+		 }
+		
+	 }
 }
+		
+
