@@ -189,11 +189,11 @@ public abstract class MaterialCapacitacion implements Ordenable {
 		 }
 		 else {
 		       if(this.titulo.compareTo(objeto.titulo) == 0){
-		    	  if(this.precio() > objeto.precio()){
+		    	  if((this.precio()).doubleValue() > (objeto.precio()).doubleValue()){
 		    	     return -1;
 		    	   }
 		           else {
-		    		    if(this.precio() == objeto.precio()) {
+		    		    if((this.precio()).doubleValue() == (objeto.precio()).doubleValue()) {
 		    			   return 0;
 		    		     }
 		    		     else {

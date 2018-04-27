@@ -50,13 +50,41 @@ public class BibliotecaList {
 			System.out.println(this.materiales.get(i));
 		}
 	}
+	
+	
+	/**
+	 * Cuando b = false ordena alfabeticamente, si b = true lo ordena por precio
+	 * @param b
+	 */
+	
+	
 	public void ordenarPorPrecio(Boolean b) {
-		if(b == false) {
-		Collections.sort((List)this.materiales);
+		if(!b) {
+			Collections.sort((List)this.materiales);
 		}
 		else {
-			//Collections.sort((List)this.materiales, this.materiales. );
+			Collections.sort((List<MaterialCapacitacion>)this.materiales,compararPrecioMateriales);
 		}
 	}
+	
+	Comparator<MaterialCapacitacion> compararPrecioMateriales = new Comparator<MaterialCapacitacion>() {
+		   @Override
+		   public int compare(MaterialCapacitacion o1, MaterialCapacitacion o2) {
+		       if(o1.precio().doubleValue() > o2.precio().doubleValue()){
+		    	   return 1;
+		       }
+		       else {
+		    	   
+		    	   if(o1.precio().doubleValue() < o2.precio().doubleValue()) {
+		    		   return -1;
+		    	   }
+		    	   else {
+		    		   return 0;
+		    	   }
+		    	   
+		       }
+		   }
+		};
+
 		
 }
