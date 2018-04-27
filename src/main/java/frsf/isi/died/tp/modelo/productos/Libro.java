@@ -5,8 +5,7 @@
  */
 package frsf.isi.died.tp.modelo.productos;
 
-import java.util.Date;
-import java.util.Objects;
+
 
 /**
  * Representa un libro en el sistema de biblioteca digital

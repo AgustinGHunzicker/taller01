@@ -55,6 +55,12 @@ public interface Biblioteca {
 	public void ordenarPorPrecio(Boolean b);
 
 	
+	/**
+	 * busca el primer material de capacitación encontrado que posee el COSTO solicitado
+	 * @param costo
+	 * @return
+	 */
+	public MaterialCapacitacion buscar(Integer costo);
 
 	
 }

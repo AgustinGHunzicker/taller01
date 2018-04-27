@@ -17,6 +17,9 @@ import frsf.isi.died.tp.util.Ordenable;
  * @author mdominguez
  */
 public abstract class MaterialCapacitacion implements Ordenable {
+	
+	// A T R I B U T O S
+	
 	protected Integer id;
 	/**
 	 * Titulo del material
@@ -30,6 +33,9 @@ public abstract class MaterialCapacitacion implements Ordenable {
 	protected Double costo;
 	
 
+	// M E T O D O S ---------------------------------------------------------------------------
+	
+	
 	/**
 	 * Constructor por defecto
 	 */
@@ -174,6 +180,7 @@ public abstract class MaterialCapacitacion implements Ordenable {
 		return bool;
 	}
 	
+	
 	/**
 	 * compara dos objetos segun el tamanio de su titulo, si es igual compara por su precio.
 	 * Si el objeto this es mas grande retorna -1
@@ -182,7 +189,6 @@ public abstract class MaterialCapacitacion implements Ordenable {
 	 * @param objeto
 	 * @return
 	 */
-	
 	 public int compareTo(MaterialCapacitacion objeto) {
 		 if(this.titulo.compareTo(objeto.titulo) > 0){
 		    return 1;
@@ -190,14 +196,14 @@ public abstract class MaterialCapacitacion implements Ordenable {
 		 else {
 		       if(this.titulo.compareTo(objeto.titulo) == 0){
 		    	  if((this.precio()).doubleValue() > (objeto.precio()).doubleValue()){
-		    	     return -1;
+		    	     return 1;
 		    	   }
 		           else {
 		    		    if((this.precio()).doubleValue() == (objeto.precio()).doubleValue()) {
 		    			   return 0;
 		    		     }
 		    		     else {
-		    		    	   return 1;
+		    		    	   return -1;
 		    		          }
 		    	       }
 		        }

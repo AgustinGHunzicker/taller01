@@ -16,6 +16,9 @@ import frsf.isi.died.tp.util.ListaServiceRadix;
  */
 public class BibliotecaArray implements Biblioteca{
 
+	
+	// A T R I B U T O S
+	
 	/**
 	 * Arreglo donde se almacenan todos los materiales de capacitacion
 	 */
@@ -30,6 +33,9 @@ public class BibliotecaArray implements Biblioteca{
 	// TODO 12: crear una variable de tipo ListaService que apuntará a una instancia del servicio de operaciones de lista
     private ListaServiceRadix serviceOp;
 	
+    
+    // M E T O D O S -------------------------------------------------------------------------------------
+    
 	public BibliotecaArray() {
 		cantidadMaterial=0;
 		this.materialCapacitacion= new MaterialCapacitacion[10];
@@ -53,12 +59,13 @@ public class BibliotecaArray implements Biblioteca{
 		}
 	}
  
+
+	
 	@Override
 	public Integer cantidadMateriales() {
 		// TODO 07: retorna la cantidad de materiales que hay ingresados en el sistema
 		return cantidadMaterial;
 	}
-
 
 
 	@Override
@@ -71,7 +78,6 @@ public class BibliotecaArray implements Biblioteca{
 		}
 		return libros;
 	}
-
 
 
 	@Override
@@ -104,6 +110,10 @@ public class BibliotecaArray implements Biblioteca{
 		return Arrays.asList(this.materialCapacitacion);
 	}
 
-
+	@Override 
+	public MaterialCapacitacion buscar(Integer precio) {
+		// TODO Auto-generated method stub
+		return null;
+		}
 
 }

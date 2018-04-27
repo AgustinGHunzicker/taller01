@@ -27,8 +27,8 @@ public class Taller02Paso03Test {
 	public void ordenarPorPrecio() {
 		Libro l1 = new Libro(1, "ABC",10.0,20.0,50);
 		Libro l2 = new Libro(1, "ABC",100.0,50.0,150);
-		assertTrue(l1.compareTo(l2)>0);
-		assertTrue(l2.compareTo(l1)<0);
+		assertTrue(l1.compareTo(l2)<0);
+		assertTrue(l2.compareTo(l1)>0);
 	}
 
 	@Test
