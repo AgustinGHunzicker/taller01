@@ -127,7 +127,20 @@ public class Libro extends MaterialCapacitacion {
 		Double precioFinal = (this.costo+(this.precioCompra * (1.00 + 0.03*(this.paginas/150))));
 		return precioFinal;
 	}
-
-	
+    /**
+     * Evalua si dos objetos son de la clase Libro y si poseen el mismo titulo
+     * sin importar si estos estan en minuscula o mayuscula
+     */
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		boolean bool = false;
+		if(obj instanceof Libro) {
+			if(this.titulo.equalsIgnoreCase(((Libro)obj).titulo)) {
+			  bool = true;
+			}
+		}	
+		return bool;
+	}
 
 }

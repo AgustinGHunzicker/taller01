@@ -75,4 +75,20 @@ public class Video extends MaterialCapacitacion {
 		Double precio = this.costo + this.duracion*Video.costoPorSegundo;
 		return precio;
 	}
+	
+	  /**
+     * Evalua si dos objetos son de la clase Video y si poseen el mismo titulo
+     * sin importar si estos estan en minuscula o mayuscula
+     */
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		boolean bool = false;
+		if(obj instanceof Video) {
+			if(this.titulo.equalsIgnoreCase(((Video)obj).titulo)) {
+			  bool = true;
+			}
+		}	
+		return bool;
+	}
 }

@@ -4,9 +4,6 @@
  * and open the template in the editor.
  */
 package frsf.isi.died.tp.modelo.productos;
-
-import java.util.ArrayList;
-
 import frsf.isi.died.tp.util.Ordenable;
 
 /**
@@ -159,6 +156,22 @@ public abstract class MaterialCapacitacion implements Ordenable {
 		double aux = (double)this.precio();
 		int valor = (int)aux;
 		return valor;
+	}
+
+	  /**
+     * Evalua si dos objetos son de la clase MaterialCapacitacion y si poseen el mismo titulo
+     * sin importar si estos estan en minuscula o mayuscula
+     */
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		boolean bool = false;
+		if(obj instanceof MaterialCapacitacion) {
+			if(this.titulo.equalsIgnoreCase(((MaterialCapacitacion) obj).titulo)) {
+			  bool = true;
+			}
+		}	
+		return bool;
 	}
 	
 }
