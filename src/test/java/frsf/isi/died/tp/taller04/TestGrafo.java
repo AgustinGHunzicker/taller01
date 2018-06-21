@@ -99,7 +99,7 @@ public class TestGrafo {
 	
 	@Test
 	public void testCaminoEntreAyElongitud3() {
-		List<MaterialCapacitacion> mat = grafo.buscarCaminoNSaltos(matA, matB, 3);
+		List<MaterialCapacitacion> mat = grafo.buscarCaminoNSaltos(matA, matE, 3);
 		assertTrue(mat.get(0).getTitulo().equalsIgnoreCase("A"));
 		assertTrue(mat.get(1).getTitulo().equalsIgnoreCase("B"));
 		assertTrue(mat.get(2).getTitulo().equalsIgnoreCase("D"));
@@ -107,7 +107,7 @@ public class TestGrafo {
 		
 	}
 
-    /* 
+    
 	@Test
 	public void testCaminoEntreAyElongitud4() {
 		List<MaterialCapacitacion> mat = grafo.buscarCaminoNSaltos(matA, matE, 4);
@@ -117,12 +117,11 @@ public class TestGrafo {
 		assertTrue(mat.get(3).getTitulo().equalsIgnoreCase("D"));
 		assertTrue(mat.get(4).getTitulo().equalsIgnoreCase("E"));
 	}
-	*/
-	/*
+	
 	@Test
  	public void testCaminoEntreAyElongitud5() {
 	List<MaterialCapacitacion> mat = grafo.buscarCaminoNSaltos(matA, matE, 5);
     assertTrue(mat.isEmpty());
 	}
-    */
+    
 }

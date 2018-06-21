@@ -246,27 +246,43 @@ public class Grafo<T> {
 		Vertice<T> origen=this.getNodo(n1);
 		Vertice<T> destino=this.getNodo(n2);
 		List<T> resultado = new ArrayList<>();
-        resultado=this.buscarCaminoNSaltos(origen, destino, saltos, new HashSet<Vertice>());
-        if(!resultado.isEmpty())resultado.add(n1);
-        Collections.reverse(resultado);
+		if(!buscarCaminoNSaltos(origen, destino, saltos, new HashSet<Vertice>()).isEmpty()) {
+			resultado.addAll(buscarCaminoNSaltos(origen, destino, saltos, new HashSet<Vertice>()));
+			resultado.add(n1);
+			Collections.reverse(resultado);
+		}
         return resultado;
     }
     private List<T> buscarCaminoNSaltos(Vertice<T> n1,Vertice<T> n2,Integer saltos,HashSet<Vertice> visitados){
-        ArrayList<T> resultado = new ArrayList<>();
-        List<T> adyacentes = new ArrayList<>();
-        adyacentes = this.getAdyacentes(n1.getValor());
+        //variables temporales
+    	ArrayList<T> resultado = new ArrayList<>();
+        Queue<T> colaAdyacentes = new LinkedList();
+        
+        //casteo para evitar errores
+        int flag = saltos.intValue();
+        
+        //agrego los adyacentes del nodo "origen" actual
+        colaAdyacentes.addAll(this.getAdyacentes(n1.getValor()));
+        
+        //agrego el nodo actual a visitados
         visitados.add(n1);
-        if(saltos.intValue() == 1 && this.getAdyacentes(n1.getValor()).contains(n2.getValor())) {
-        	resultado.add(n2.getValor());
-        	visitados.clear();
-        	return resultado;
+        
+        //La condicion de corte es llegar a que saltos sea 1, y que 
+        //en los nodos adyacentes del nodo actual (n1) se encuentre n2 (destino) 
+       
+        if(flag == 1) {
+        	if(this.getAdyacentes(n1.getValor()).contains(n2.getValor())){
+        	   resultado.add(n2.getValor());
+        	   visitados.clear();
+        	   return resultado;
         	}
-        if(saltos.intValue()==1) {
-        	visitados.clear();
-        	return resultado;
+        	visitados.clear(); //si saltos igual a 1 pero adyacentes no contiene a n2, 
+        	return resultado;  //limpio los visitados y busco por otro camino (continuara en el while si quedan)
         }
         
-        for(T aux : adyacentes) {
+        T aux;
+        while(!colaAdyacentes.isEmpty()) {
+        	aux = colaAdyacentes.poll(); 
         	if(!visitados.contains(this.getNodo(aux))) {
         		ArrayList<T> resulta2 = new ArrayList<>();
         		resulta2.addAll(buscarCaminoNSaltos(this.getNodo(aux),n2,(saltos-1),visitados));
@@ -275,7 +291,6 @@ public class Grafo<T> {
         	}
         }
         return resultado;        
-    
    }
 }
 
