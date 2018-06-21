@@ -225,11 +225,6 @@ public abstract class MaterialCapacitacion implements Ordenable {
 	 
 	 
 	 
-	 
-	 
-	 
-	 
-	 
 }
 		
 

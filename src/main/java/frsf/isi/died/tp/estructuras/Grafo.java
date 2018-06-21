@@ -10,19 +10,19 @@ package frsf.isi.died.tp.estructuras;
  * @author mdominguez
  */
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Stack;
 
 public class Grafo<T> {
 
 	protected List<Arista<T>> aristas;
 	protected List<Vertice<T>> vertices;
 
-	/**
-	 * 
-	 */
 	public Grafo(){
 		this.aristas = new ArrayList<Arista<T>>();
 		this.vertices = new ArrayList<Vertice<T>>();
@@ -85,7 +85,6 @@ public class Grafo<T> {
 	public Vertice<T> getNodo(T valor){
 		return this.vertices.get(this.vertices.indexOf(new Vertice<T>(valor)));
 	}
-
 	/**
 	 * @param valor
 	 * @return
@@ -101,7 +100,6 @@ public class Grafo<T> {
 		return salida;
 	}
 	
-
 	/**
 	 * @param unNodo
 	 * @return
@@ -116,15 +114,10 @@ public class Grafo<T> {
 		return salida;
 	}
                 
-	/**
-	 * 
-	 */
 	public void imprimirAristas(){
 		System.out.println(this.aristas.toString());
 	}
-
-
-        
+      
 	/**
 	 * @param v1
 	 * @param v2
@@ -188,109 +181,102 @@ public class Grafo<T> {
 		return res;
 	}
 
+	/**
+	 * Retorna v, si posee gradoK de salida o
+	 * pasa los parametros aVisitar, gradoK, visitados, agregados al metodo "primerK"
+	 * @param v
+	 * @param gradoK
+	 * @return
+	 */
     public T primerVerticeGradoK(T v,Integer gradoK) {
-    	HashSet<Vertice> visitados= new HashSet<>();
-    	//TODO
-
-    	
-    		if(this.gradoSalida(v).equals(gradoK)) {
-    			
-    			return v;
-    			
-    		}
-    		
-    		else {
-    			
-    			visitados.add((Vertice)v);
-    			
-    			List<T> adyacentes = this.getAdyacentes(v);
-    			
-    			int k = 0;
-    			
-    			while(k < adyacentes.size()) {
-    				
-    							
-    				if(visitados.contains((Vertice)v) == false) {
-    					T verticeEncontrado = this.primerVerticeGradoK( adyacentes.get(k), gradoK, visitados);
-        				
-        				if( !verticeEncontrado.equals(null)) { //verticeEncontrado != null
-        					return  verticeEncontrado;
-        				}	
-    				}
-    				
-    			
-    				k++;
-    			}
-    			
-    		}
-
-		return null;
-    }
-
-    private T primerVerticeGradoK(T v,Integer gradoK, HashSet<Vertice> visitados) {
-    
-    	if(visitados.contains((Vertice)v) == false) {
-    		
-    		if(this.gradoSalida(v).equals(gradoK)) {
-    			
-    			return v;
-    			
-    		}
-    		else {
-    			
-    			visitados.add((Vertice)v);
-    			
-    			List<T> adyacentes = this.getAdyacentes(v);
-    			
-    			int k = 0;
-    			
-    			while(k<adyacentes.size()) {
-    				T verticeEncontrado = this.primerVerticeGradoK( adyacentes.get(k), gradoK, visitados);
-    				
-    				if( !verticeEncontrado.equals(null) ) {
-    					return  verticeEncontrado;
-    				}
-    				k++;
-    			}
-    		}
-    		return  null;
-    		
+    	HashSet<T> visitados=new HashSet<>();
+    	HashSet<T> agregados=new HashSet<>();
+    	if(this.gradoSalida(v).intValue() == gradoK.intValue()) {
+    		return v;
     	}
-    	
     	else {
-    		return null;
+    		Queue<T> aVisitar = new LinkedList<T>();   //Cola en anchura del Grafo para recorrer
+        	visitados.add(v);
+    		aVisitar.addAll(this.getAdyacentes(v));
+        	int k = gradoK.intValue();
+        	return primerK(aVisitar, k, visitados,agregados);	   //Llama a la recursion
     	}
-	
-
-	
+    	
     }
-    
-    
-    
+     /**
+      * retorna el nodo con gradoK de salidas, si no existe dicho nodo retorna NULL
+      * @param aVisitar    nodos ordenado en forma de ANCHURA del grafo A VISITAR
+      * @param gradoK      grado de SALIDA que se busca
+      * @param visitados   nodos ya visitados
+      * @param agregados   nodos a visitar ya agregados en la cola (evita repetidos)
+      * @return
+      */
+    private T primerK(Queue<T> aVisitar,int gradoK,HashSet<T> visitados,HashSet<T> agregados) {
+    	Queue<T> colaAux = new LinkedList(); //para ver si tendremos que ver en sus adyacentes o si ya se busco
+    	T nodoAux;
+    	if((nodoAux = aVisitar.poll())==null) return null;
+    	else {
+    	if(this.gradoSalida(nodoAux).intValue() == gradoK) {
+    		return nodoAux;
+    	}
+    	else {
+    		visitados.add(nodoAux);
+    		colaAux.addAll(this.getAdyacentes(nodoAux)); 
+    		while((nodoAux = colaAux.poll())!=null) {
+    			if(!visitados.contains(nodoAux)&&!agregados.contains(nodoAux)) {
+    				aVisitar.add(nodoAux); //verifico si ese adyacente ya no fue visitado
+    			}
+    		}
+    		return primerK(aVisitar,gradoK,visitados,agregados);
+    	}
+    }
+    }
+   
     public boolean existeCamino(T v) {
 		Vertice<T> vertice = this.getNodo(v);
     	return true;
     }
-    
-    
+  
     /**
      * @param n1
      * @param n2
      * @param valor
      */
     public List<T> buscarCaminoNSaltos(T n1,T n2,Integer saltos){
-		Vertice<T> origen = this.getNodo(n1);
-		Vertice<T> destino= this.getNodo(n2);
-        return this.buscarCaminoNSaltos(origen, destino, saltos, new HashSet<Vertice>());
-         
+		Vertice<T> origen=this.getNodo(n1);
+		Vertice<T> destino=this.getNodo(n2);
+		List<T> resultado = new ArrayList<>();
+        resultado=this.buscarCaminoNSaltos(origen, destino, saltos, new HashSet<Vertice>());
+        if(!resultado.isEmpty())resultado.add(n1);
+        Collections.reverse(resultado);
+        return resultado;
     }
     private List<T> buscarCaminoNSaltos(Vertice<T> n1,Vertice<T> n2,Integer saltos,HashSet<Vertice> visitados){
         ArrayList<T> resultado = new ArrayList<>();
-       //TODO
-        return resultado;
-    }
-
+        List<T> adyacentes = new ArrayList<>();
+        adyacentes = this.getAdyacentes(n1.getValor());
+        visitados.add(n1);
+        if(saltos.intValue() == 1 && this.getAdyacentes(n1.getValor()).contains(n2.getValor())) {
+        	resultado.add(n2.getValor());
+        	visitados.clear();
+        	return resultado;
+        	}
+        if(saltos.intValue()==1) {
+        	visitados.clear();
+        	return resultado;
+        }
+        
+        for(T aux : adyacentes) {
+        	if(!visitados.contains(this.getNodo(aux))) {
+        		ArrayList<T> resulta2 = new ArrayList<>();
+        		resulta2.addAll(buscarCaminoNSaltos(this.getNodo(aux),n2,(saltos-1),visitados));
+        		if(!resulta2.isEmpty())resulta2.add(aux);
+        		resultado.addAll(resulta2);
+        	}
+        }
+        return resultado;        
     
-  
-
+   }
 }
+
+
